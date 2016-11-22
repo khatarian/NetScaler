@@ -12,7 +12,7 @@
 RootModule = 'NetScaler.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.4.0'
+ModuleVersion = '1.4.1'
 
 # ID used to uniquely identify this module
 GUID = 'bd4390dc-a8ad-4bce-8d69-f53ccf8e4163'
@@ -189,6 +189,7 @@ FunctionsToExport = @(
     'Remove-NSVPNSessionProfile',
     'Restart-NetScaler',
     'Save-NSConfig',
+    'Set-NSHAStatus',
     'Set-NSHostname',
     'Set-NSLBServer',
     'Set-NSLBServiceGroup',
@@ -257,4 +258,3 @@ PrivateData = @{
 # DefaultCommandPrefix = ''
 
 }
-
