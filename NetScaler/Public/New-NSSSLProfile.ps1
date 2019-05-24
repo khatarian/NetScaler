@@ -143,6 +143,9 @@ function New-NSSSLProfile {
                 if ($PSBoundParameters.ContainsKey('DenySslRenegotiation')) {
                     $params.Add('denysslreneg', $DenySslRenegotiation)
                 }
+                if ($PSBoundParameters.ContainsKey('ProfileType')) {
+                    $params.Add('sslprofiletype', $ProfileType)
+                }    
                 if ($PSBoundParameters.ContainsKey('SSL3')) {
                     $params.Add('ssl3', $SSL3)
                 }
