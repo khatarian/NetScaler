@@ -240,6 +240,7 @@ FunctionsToExport = @(
     'Restart-NetScaler',
     'Set-NSCertKeyPair',
     'Save-NSConfig',
+    'Set-NSHAStatus',
     'Set-NSHostname',
     'Set-NSIPResource',
     'Set-NSLBMonitor',
@@ -318,4 +319,3 @@ PrivateData = @{
 # DefaultCommandPrefix = ''
 
 }
-
