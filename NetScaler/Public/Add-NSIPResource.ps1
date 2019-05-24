@@ -27,6 +27,11 @@ function Add-NSIPResource {
 
         Add IP address 10.10.10.10 to NetScaler.
 
+    .EXAMPLE
+        Add-NSIPResource -IPAddress 192.168.30.31 -SubnetMask 255.255.255.0 -Type SNIP -VServer -Telnet -FTP -SNMP -SSH -GUI
+
+        Add IP address 192.168.30.31 to NetScaler and disabled VServer,SSH, GUI and SNMP but enable but enable Telnet and FTP to Netscaler
+
     .PARAMETER Session
         The NetScaler session object.
 
@@ -66,6 +71,36 @@ function Add-NSIPResource {
         Default value: ENABLED
         Possible values = ENABLED, DISABLED
 
+    .PARAMETER Telnet
+        Use this option to set (enable or disable) the virtual server attribute for this IP address.
+
+        Default value: DISABLED
+        Possible values = ENABLED, DISABLED
+
+    .PARAMETER FTP
+        Use this option to set (enable or disable) the virtual server attribute for this IP address.
+
+        Default value: DISABLED
+        Possible values = ENABLED, DISABLED            
+
+    .PARAMETER GUI
+        Use this option to set (enable or disable) the virtual server attribute for this IP address.
+
+        Default value: ENABLED
+        Possible values = ENABLED, DISABLED
+
+    .PARAMETER SSH
+        Use this option to set (enable or disable) the virtual server attribute for this IP address.
+
+        Default value: ENABLED
+        Possible values = ENABLED, DISABLED        
+
+    .PARAMETER SNMP
+        Use this option to set (enable or disable) the virtual server attribute for this IP address.
+
+        Default value: ENABLED
+        Possible values = ENABLED, DISABLED        
+
     .PARAMETER MgmtAccess
         Allow access to management applications on this IP address.
 
@@ -74,7 +109,6 @@ function Add-NSIPResource {
     #>
     [cmdletbinding(SupportsShouldProcess = $true, ConfirmImpact='Low')]
     param(
-        [parameter(Mandatory)]
         $Session = $script:session,
 
         [parameter(Mandatory)]
@@ -89,6 +123,16 @@ function Add-NSIPResource {
         [string]$Type = 'SNIP',
 
         [switch]$VServer,
+
+        [switch]$Telnet,
+
+        [switch]$FTP,
+
+        [switch]$GUI,
+
+        [switch]$SSH,
+
+        [switch]$SNMP,
         
         [switch]$MgmtAccess
     )
@@ -106,7 +150,12 @@ function Add-NSIPResource {
                         netmask = $SubnetMask
                         type = $Type
                         vserver = if ($PSBoundParameters.ContainsKey('VServer')) { 'ENABLED' } else { 'DISABLED' }
-                        mgmtaccess = if ($PSBoundParameters.ContainsKey('MgmtAccess')) { 'ENABLED' } else { 'DISABLED' }
+                        telnet = if ($PSBoundParameters.ContainsKey('Telnet')) { 'DISABLED' } else { 'DISABLED' }
+                        ftp = if ($PSBoundParameters.ContainsKey('FTP')) { 'DISABLED' } else { 'DISABLED' }
+                        gui = if ($PSBoundParameters.ContainsKey('GUI')) { 'DISABLED' } else { 'ENABLED' }
+                        ssh = if ($PSBoundParameters.ContainsKey('SSH')) { 'DISABLED' } else { 'ENABLED' }
+                        snmp = if ($PSBoundParameters.ContainsKey('SNMP')) { 'DISABLED' } else { 'ENABLED' }
+                        mgmtaccess = if ($PSBoundParameters.ContainsKey('MgmtAccess')) { 'DISABLED' } else { 'ENABLED' }
                     }
                     $response = _InvokeNSRestApi -Session $Session -Method POST -Type nsip -Payload $params -Action add
                 } catch {

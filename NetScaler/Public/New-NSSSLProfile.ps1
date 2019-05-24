@@ -76,8 +76,12 @@ function New-NSSSLProfile {
 
     .PARAMETER ProfileType
         Type of profile. Front end profiles apply to the entity that receives requests from a client. Backend profiles apply to the entity that sends client requests to a server.
-
         Default value: FrontEnd
+
+    .PARAMETER DenySslRenegotiation
+        Deny renegotiation in specified circumstances. Available settings function as follows: * NO - Allow SSL renegotiation. * FRONTEND_CLIENT - Deny secure and nonsecure SSL renegotiation initiated by the client. * FRONTEND_CLIENTSERVER - Deny secure and nonsecure SSL renegotiation initiated by the client or the NetScaler during policy-based client authentication. * ALL - Deny all secure and nonsecure SSL renegotiation. * NONSECURE - Deny nonsecure SSL renegotiation. Allows only clients that support RFC 5746.
+        Default value: ALL
+        Possible values = NO, FRONTEND_CLIENT, FRONTEND_CLIENTSERVER, ALL, NONSECURE
 
     .EXAMPLE
         New-NSSSLProfile -Name "Secure_SSL_Profile" -ProfileType "FrontEnd" -SSL3 $false -TLS1 $true -TLS11 $true -TLS12 $true -DenySslRenegotiation "FRONTEND_CLIENT"
@@ -99,9 +103,6 @@ function New-NSSSLProfile {
 
         [ValidateSet('FrontEnd','BackEnd')]
         [string]$ProfileType,
-
-        [ValidateSet('ENABLED','DISABLED')]
-        [string]$SSL2,
 
         [ValidateSet('ENABLED','DISABLED')]
         [string]$SSL3,
@@ -141,9 +142,6 @@ function New-NSSSLProfile {
                 }
                 if ($PSBoundParameters.ContainsKey('DenySslRenegotiation')) {
                     $params.Add('denysslreneg', $DenySslRenegotiation)
-                }
-                if ($PSBoundParameters.ContainsKey('SSL2')) {
-                    $params.Add('ssl2', $SSL2)
                 }
                 if ($PSBoundParameters.ContainsKey('SSL3')) {
                     $params.Add('ssl3', $SSL3)

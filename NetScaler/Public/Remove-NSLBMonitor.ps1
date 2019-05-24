@@ -60,9 +60,8 @@ function Remove-NSLBMonitor {
         foreach ($item in $Name) {
             if ($Force -or $PSCmdlet.ShouldProcess($item, 'Delete Monitor')) {
                 try {
-                    $m = Get-NSLBMonitor -Session $Session -Name $item
                     $params = @{
-                        type = $m.lbmonitor.type
+                        monitorname = $Name
                     }
                     _InvokeNSRestApi -Session $Session -Method DELETE -Type lbmonitor -Resource $item -Arguments $params -Action delete
                 } catch {

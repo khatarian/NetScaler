@@ -62,7 +62,7 @@ function Add-NSLBVirtualServerResponderPolicyBinding {
         [string]
         $PolicyName,
 
-        [parameter(Mandatory=$True)]
+        [parameter()]
         [ValidateSet('REQUEST', 'RESPONSE')]
         [string]
         $Bindpoint,
