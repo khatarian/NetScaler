@@ -41,7 +41,7 @@ function Get-NSLBServiceGroupMonitorBinding {
         $Session = $script:session,
 
         [parameter(Mandatory, ValueFromPipeline = $true, Position = 0, ValueFromPipelineByPropertyName)]
-        [string[]]$Name,
+        [string[]]$ServiceGroupName,
 
         [parameter()]
         [string]$MonitorName
@@ -58,7 +58,7 @@ function Get-NSLBServiceGroupMonitorBinding {
             if ($PSBoundParameters.ContainsKey('MonitorName')) {
                 $Filters['monitor_name'] = $MonitorName
             }
-            _InvokeNSRestApiGet -Session $Session -Type servicegroup_lbmonitor_binding -Name $Name -Filters $Filters
+            _InvokeNSRestApiGet -Session $Session -Type servicegroup_lbmonitor_binding -Name $ServiceGroupName -Filters $Filters
         }
         catch {
             throw $_
