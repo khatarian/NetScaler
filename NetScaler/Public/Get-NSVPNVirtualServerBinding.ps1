@@ -38,20 +38,20 @@ function Get-NSVPNVirtualServerBinding {
     .PARAMETER Name
         The name or names of the NetScaler Gateway virtual server to retrieve the bindings.
 
-    .PARAMETER binding
+    .PARAMETER Binding
         Type of policy binding to query.
 
-        Possible values: SessionPolicy, LDAPAuthenticationPolicy, STAServer
+        Possible values: SessionPolicy, LDAPAuthenticationPolicy, STAServer, RADIUSAuthenticationPolicy, VPNUrl
 
     .PARAMETER PolicyName
-        Name of the bound policy (or STA server) to retrieve from the NetScaler Gateway virtual server.
+        Name of the bound policy (or STA server/URL) to retrieve from the NetScaler Gateway virtual server.
     #>
     [cmdletbinding()]
     param(
         $Session = $script:session,
 
         [parameter(Mandatory)]
-        [ValidateSet('SessionPolicy','LDAPAuthenticationPolicy','STAServer')]
+        [ValidateSet('SessionPolicy','LDAPAuthenticationPolicy','STAServer','RADIUSAuthenticationPolicy','SAMLAuthenticationPolicy','VPNUrl')]
         [string]$Binding,
 
         [parameter(Mandatory)]
@@ -66,6 +66,9 @@ function Get-NSVPNVirtualServerBinding {
                 'SessionPolicy' { $policyType = 'vpnvserver_vpnsessionpolicy_binding' }
                 'LDAPAuthenticationPolicy' { $policyType = 'vpnvserver_authenticationldappolicy_binding' }
                 'STAServer' { $policyType = 'vpnvserver_staserver_binding' }
+                'RADIUSAuthenticationPolicy' { $policyType = 'vpnvserver_authenticationradiuspolicy_binding' }
+                'SAMLAuthenticationPolicy' { $policyType = 'vpnvserver_authenticationsamlpolicy_binding' }
+                'VPNUrl' { $policyType = 'vpnvserver_vpnurl_binding' }
             }
 
             $filters = @{}
@@ -74,6 +77,10 @@ function Get-NSVPNVirtualServerBinding {
                 if ($Binding -eq 'STAServer') {
                     ## STA servers are not policies and are filtered based upon name
                     $filters.Add('staserver', $PolicyName)
+                }
+                elseif ($Binding -eq 'VPNUrl') {
+                    ## URLs are not policies and are filtered based upon name
+                    $filters.Add('urlname', $PolicyName)
                 }
                 else {
                     $filters.Add('policy', $PolicyName)

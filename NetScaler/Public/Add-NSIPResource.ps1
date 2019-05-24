@@ -36,7 +36,7 @@ function Add-NSIPResource {
         The NetScaler session object.
 
     .PARAMETER IPAddress
-        IPv4 address to create on the NetScaler appliance. 
+        IPv4 address to create on the NetScaler appliance.
 
         Note: Cannot be changed after the IP address is created
 
@@ -44,22 +44,22 @@ function Add-NSIPResource {
         Subnet mask associated with the IP address.
 
     .PARAMETER Type
-        Type of the IP address to create on the NetScaler appliance. Cannot be changed after the IP address is created. 
-        
-        The following are the different types of NetScaler owned IP addresses: 
+        Type of the IP address to create on the NetScaler appliance. Cannot be changed after the IP address is created.
+
+        The following are the different types of NetScaler owned IP addresses:
 
         * A Subnet IP (SNIP) address is used by the NetScaler ADC to communicate with the servers.
         The NetScaler also uses the subnet IP address when generating its own packets, such as packets related to dynamic routing
-        protocols, or to send monitor probes to check the health of the servers. 
+        protocols, or to send monitor probes to check the health of the servers.
 
         * A Virtual IP (VIP) address is the IP address associated with a virtual server. It is the IP address to which clients connect.
-        An appliance managing a wide range of traffic may have many VIPs configured. Some of the attributes of the VIP address are 
-        customized to meet the requirements of the virtual server. 
-    
+        An appliance managing a wide range of traffic may have many VIPs configured. Some of the attributes of the VIP address are
+        customized to meet the requirements of the virtual server.
+
         * A GSLB site IP (GSLBIP) address is associated with a GSLB site. It is not mandatory to specify a GSLBIP address when you
-        initially configure the NetScaler appliance. A GSLBIP address is used only when you create a GSLB site. 
-    
-        * A Cluster IP (CLIP) address is the management address of the cluster. All cluster configurations must be performed by 
+        initially configure the NetScaler appliance. A GSLBIP address is used only when you create a GSLB site.
+
+        * A Cluster IP (CLIP) address is the management address of the cluster. All cluster configurations must be performed by
         accessing the cluster through this IP address.
 
         Default value: SNIP
@@ -157,7 +157,7 @@ function Add-NSIPResource {
                         snmp = if ($PSBoundParameters.ContainsKey('SNMP')) { 'DISABLED' } else { 'ENABLED' }
                         mgmtaccess = if ($PSBoundParameters.ContainsKey('MgmtAccess')) { 'DISABLED' } else { 'ENABLED' }
                     }
-                    $response = _InvokeNSRestApi -Session $Session -Method POST -Type nsip -Payload $params -Action add
+                    _InvokeNSRestApi -Session $Session -Method POST -Type nsip -Payload $params -Action add | Out-Null
                 } catch {
                     throw $_
                 }

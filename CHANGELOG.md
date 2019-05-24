@@ -1,22 +1,58 @@
 
-## 1.5.0 (Unreleased)
+# Change Log
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## Unreleased
+  * Features
+    * Added Get-NSRADIUSAuthenticationServer, New-NSRADIUSAuthenticationServer and Remove-NSRADIUSAuthenticationServer functions (via @iainbrighton)
+    * Added Get-NSRADIUSAuthenticationPolicy, New-NSRADIUSAuthenticationPolicy and Remove-NSRADIUSAuthenticationPolicy functions (via @iainbrighton)
+    * Added -RADIUSAuthenticationPolicyName parameter to Add-NSVPNVirtualServerBinding function (via @iainbrighton)
+    * Added RADIUSAuthenticationPolicy -Binding parameter to Get-NSVPNVirtualServerBinding function (via @iainbrighton)
+    * Added Get-NSDnsRecord, Add-NSDnsRecord and Remove-NSDnsRecord functions (via @iainbrighton)
+    * Added Get-NSTACACSAuthenticationPolicy, New-NSTACACSAuthenticationPolicy and Remove-NSTACACSAuthenticationPolicy functions (via @iainbrighton)
+    * Added Get-NSTACACSAuthenticationServer, New-NSTACACSAuthenticationServer and Remove-NSTACACSAuthenticationServer functions (via @iainbrighton)
+    * Added LDAP nested group extraction parameters to New-NSLDAPAuthenticationServer (via @iainbrighton)
+    * Added RfWebUI option to Set-NSVPNVirtualServerTheme (via @iainbrighton)
+    * Added Add-NSAuthenticationPolicyGlobalBinding, Get-NSAuthenticationPolicyGlobalBinding, Remove-NSAuthenticationPolicyGlobalBinding functions (via @iainbrighton)
+    * Added Get-NSRDPClientProfile, New-NSRDPClientProfile and Remove-NSRDPClientProfile functions (via @iainbrighton)
+    * Added -RDPServerProfileName parameter to New-NSVPNVirtualServer and New-NSVPNSessionProfile (via @iainbrighton)
+    * Added Get-NSVPNUrl, New-NSVPNUrl and Remove-NSVPNUrl functions (via @iainbrighton)
+    * Added New-NSSAMLAuthenticationPolicy and Remove-NSSAMLAuthenticationPolicy functions (via @iainbrighton)
+    * Added New-NSSAMLAuthenticationServer and Remove-NSSAMLAuthenticationServer functions (via @iainbrighton)
+    * Added -SAMLAuthenticationPolicyName and -VPNUrlName parameters to Add-NSVPNVirtualServerBinding and Get-NSVPNVirtualServerBinding (via @iainbrighton)
+
+  * Bug fixes
+    * Fixed bug where extraneous Out-Null files were created when calling some functions (via @iainbrighton)
+
+## 1.7.0 (2018-07-02)
+  * Features
+    * PR88 - Add SearchFilter and SubAttributeName parameters to New-NSLDAPAuthenticationServer (via @iainbrighton)
+
+## 1.6.0 (2017-10-31)
+  * Features
+    * PR82 - Added Get-NSCurrentTime, Get-NSlicenseExpiration, and Update-NSAppliance functions (via @ryancbutler)
+
+## 1.5.0 (2017-07-25)
   * Features
     * PR57 - Added -Graceful parameter to the Disable-NSLBServer (via @daimhin)
     * PR59 - Added New-NSRewriteAction and New-NSRewritePolicy functions (via @dbroeglin)
     * PR61 - Added Clear-NSAAASession function (via @dbroeglin)
-    * PR66 - Added Add-NSLBVirtualServerTrafficPolicyBinding and Get-NSLBVirtualServerTrafficPolicyBinding functions (via @dbroeglin
-    )
+    * PR66 - Added Add-NSLBVirtualServerTrafficPolicyBinding and Get-NSLBVirtualServerTrafficPolicyBinding functions (via @dbroeglin)
     * PR72 - Added Get-NSHardware and Remove-NSSystemFile functions (via @daimhin)
+    * PR77 - Added Enable-NSHighAvailability and Get-HANode functions (via @dbroeglin)
 
   * Improvements
     * PR66 - Updated comment-based help for Get-NSLBVirtualServerResponderPolicyBinding and Get-NSLBVirtualServerRewritePolicyBinding (via @dbroeglin)
+    * PR78 - Internal improvements to connecting to NetScaler URI (via @dbroeglin)
 
   * Bug fixes
     * PR68 - Fixed bug in Add-NSCertKeyPair when converting a securestring to plain text using PowerShell v6.0 on Mac OSX. (via @dbroeglin)
     * PR72 - Fix bug in Get-NSSystemFile where FileLocation parameter was not set to mandatory even though the Nitro API requires it (via @dbroeglin)
-
-  * Deprecated
-    * None
+    * PR75 - Use correct property name when returning monitor before deleting with Remove-NSLBMonitor (via @devblackops)
 
 ## 1.4.0 (2016-11-07)
   * Features
